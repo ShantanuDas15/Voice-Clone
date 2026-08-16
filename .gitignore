@@ -1,0 +1,59 @@
+# Python & Virtual Environments
+.venv/
+backend/.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Frontend
+frontend/node_modules/
+node_modules/
+dist/
+frontend/dist/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+serviceAccountKey.json
+firebase-adminsdk*.json
+
+# Audio & Media Cache
+*.wav
+*.mp3
+*.flac
+*.ogg
+audio_cache/
+uploads/
+generated/
+
+# ML Models & Checkpoints
+*.pt
+*.pth
+*.onnx
+*.bin
+model_weights/
+checkpoints/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
