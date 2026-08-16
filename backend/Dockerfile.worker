@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on
+
+WORKDIR /app
+
+# Install system dependencies (including audio processing libs like ffmpeg if needed later)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends gcc libpq-dev ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Assuming requirements.txt is used. If not, this step will be updated in Milestone 1.3
+# COPY requirements.txt .
+# RUN pip install -r requirements.txt
+
+# We'll copy source code in production, but for dev we mount it.
+# COPY . /app
+
+# Command is overridden in docker-compose for dev
+CMD ["celery", "-A", "app.tasks.celery_app", "worker", "--loglevel=info"]
