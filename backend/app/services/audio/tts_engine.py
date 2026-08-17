@@ -15,7 +15,7 @@ class ElevenLabsClient:
     def is_configured(self):
         return self.api_key is not None
 
-    async def generate_speech(self, text: str, voice_id: str) -> bytes:
+    def generate_speech(self, text: str, voice_id: str) -> bytes:
         """
         Generates speech using the ElevenLabs API and returns the audio bytes.
         """
@@ -26,32 +26,32 @@ class ElevenLabsClient:
         
         payload = {
             "text": text,
-            "model_id": "eleven_monolingual_v1", # or eleven_multilingual_v2
+            "model_id": "eleven_monolingual_v1",
             "voice_settings": {
                 "stability": 0.5,
                 "similarity_boost": 0.75
             }
         }
 
-        async with httpx.AsyncClient() as client:
-            response = await client.post(url, json=payload, headers=self.headers, timeout=60.0)
+        with httpx.Client() as client:
+            response = client.post(url, json=payload, headers=self.headers, timeout=60.0)
             
             if response.status_code != 200:
                 raise Exception(f"ElevenLabs API Error: {response.status_code} - {response.text}")
                 
             return response.content
 
-    async def get_voices(self) -> list[dict]:
+    def get_voices(self) -> list[dict]:
         """
-        Retrieves all voices available to the user (including custom cloned voices).
+        Retrieves all voices available to the user.
         """
         if not self.is_configured():
             return []
 
         url = f"{ELEVENLABS_API_URL}/voices"
         
-        async with httpx.AsyncClient() as client:
-            response = await client.get(url, headers=self.headers)
+        with httpx.Client() as client:
+            response = client.get(url, headers=self.headers)
             if response.status_code == 200:
                 return response.json().get("voices", [])
             return []
