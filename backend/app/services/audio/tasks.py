@@ -55,10 +55,52 @@ def task_generate_speech(self, generation_id: str, text: str, voice_id: str):
     finally:
         db.close()
 
+from app.models.voice_profile import VoiceProfile, VoiceProfileStatus
+import os
+
 @celery_app.task(bind=True, max_retries=3)
-def task_process_voice_profile(self, profile_id: str):
+def task_process_voice_profile(self, profile_id: str, file_paths: list[str]):
     """
     Background task to clone a voice using uploaded audio samples.
-    (Placeholder until we add the form upload UI for voice samples)
     """
-    pass
+    db: Session = SessionLocal()
+    prof_id_uuid = uuid.UUID(profile_id)
+    
+    profile: Optional[VoiceProfile] = db.query(VoiceProfile).filter(VoiceProfile.id == prof_id_uuid).first()
+    
+    if not profile:
+        db.close()
+        # Clean up files
+        for path in file_paths:
+            if os.path.exists(path):
+                os.remove(path)
+        return "Voice profile record not found"
+
+    try:
+        # Call ElevenLabs API to add the voice
+        voice_id = tts_engine.add_voice(
+            name=profile.name,
+            description=profile.description or "",
+            file_paths=file_paths
+        )
+        
+        # Update database record
+        profile.status = VoiceProfileStatus.ready
+        profile.external_voice_id = voice_id
+        db.commit()
+        
+        return {"status": "success", "voice_id": voice_id}
+        
+    except Exception as exc:
+        profile.status = VoiceProfileStatus.failed
+        db.commit()
+        
+        # Retry with exponential backoff if it's an API glitch
+        raise self.retry(exc=exc, countdown=2 ** self.request.retries)
+        
+    finally:
+        db.close()
+        # Clean up local temporary files
+        for path in file_paths:
+            if os.path.exists(path):
+                os.remove(path)

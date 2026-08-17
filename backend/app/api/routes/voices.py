@@ -80,13 +80,24 @@ async def upload_samples(
     if voice.status == VoiceProfileStatus.ready:
         raise HTTPException(status_code=400, detail="Voice profile is already trained")
 
-    # In a full implementation, we'd save these files to R2 here, 
-    # then pass the R2 keys to the Celery task.
-    # For MVP, we can trigger the Celery task (which needs to be fully fleshed out to hit ElevenLabs)
+    # Save uploaded files to temporary local storage
+    import os
+    import shutil
+    import tempfile
+    
+    file_paths = []
+    tmp_dir = tempfile.gettempdir()
+    for file in files:
+        # Create a unique filename in tmp
+        safe_filename = f"{uuid.uuid4()}_{file.filename}"
+        tmp_path = os.path.join(tmp_dir, safe_filename)
+        with open(tmp_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        file_paths.append(tmp_path)
     
     voice.status = VoiceProfileStatus.processing
     db.commit()
     
-    task_process_voice_profile.delay(str(voice.id))
+    task_process_voice_profile.delay(str(voice.id), file_paths)
     
     return {"status": "processing", "message": "Voice is being cloned in the background"}
