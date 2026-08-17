@@ -2,7 +2,7 @@ import uuid
 from pydantic import BaseModel
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.db.session import get_db
+from app.db.database import get_db
 from app.core.security import verify_firebase_token
 from app.models.user import User
 from app.models.generation import GenerationHistory, GenerationStatus
