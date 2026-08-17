@@ -50,7 +50,7 @@ By the end of Phase 1, the project must have:
 | 1.6 | Core API Endpoints (Auth) | User sync and profile endpoints (POST /auth/sync, GET /users/me) | ✅ Done |
 | 1.7 | Frontend Scaffold (React+Vite) | Vite app with TypeScript, Tailwind CSS, shadcn/ui, routing | ✅ Done |
 | 1.8 | Frontend Auth Flows | Login, Signup, Google OAuth, protected route, profile page | ✅ Done |
-| 1.9 | CI/CD & Deployment | GitHub Actions CI, Railway backend deploy, Vercel frontend deploy | ❌ Todo |
+| 1.9 | CI/CD & Deployment | GitHub Actions CI, Railway backend deploy, Vercel frontend deploy | ✅ Done |
 
 ---
 
@@ -573,13 +573,13 @@ VITE_API_BASE_URL            # Railway backend URL
 ```
 
 ### Tasks
-- [ ] Write `ci.yml` with backend + frontend CI stages
-- [ ] Install `ruff` as a dev dependency for linting
-- [ ] Configure Railway project — link GitHub repo, set env vars
-- [ ] Configure Vercel project — link GitHub repo, set env vars
-- [ ] Push to `main` and verify CI passes
-- [ ] Verify Railway deployment returns `GET /health → 200`
-- [ ] Verify Vercel deployment serves frontend and OAuth redirect domain is whitelisted in Firebase
+- [x] Write `ci.yml` with backend + frontend CI stages
+- [x] Install `ruff` as a dev dependency for linting
+- [x] Configure Railway project — link GitHub repo, set env vars
+- [x] Configure Vercel project — link GitHub repo, set env vars
+- [x] Push to `main` and verify CI passes
+- [x] Verify Railway deployment returns `GET /health → 200`
+- [x] Verify Vercel deployment serves frontend and OAuth redirect domain is whitelisted in Firebase
 
 ### Verification Gateway
 ```bash
@@ -680,3 +680,4 @@ Phase 1 is **complete and ready for Phase 2** when ALL of the following are true
 | 2026-08-16 | 1.6 | e8d2bcb | Implemented core auth API routes, user schemas, and async service logic |
 | 2026-08-17 | 1.7 | c629fb4 | Frontend scaffold with Vite, React, TS, Tailwind, shadcn, and Firebase setup |
 | 2026-08-17 | 1.8 | f09dc54 | Implemented Frontend Auth Flows, Login, Signup, Landing, Dashboard, and Profile pages |
+| 2026-08-17 | 1.9 | 0615652 | Setup GitHub Actions CI/CD, backend Procfile, frontend vercel.json |
