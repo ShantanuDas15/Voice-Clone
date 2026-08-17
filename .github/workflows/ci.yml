@@ -1,4 +1,4 @@
-name: CI
+name: CI Pipeline
 
 on:
   push:
@@ -7,9 +7,60 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  backend-ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Placeholder CI
-        run: echo "CI configured"
+      - uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+        with:
+          enable-cache: true
+          
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          uv pip install --system -r requirements.txt
+          
+      - name: Run Ruff Linting
+        run: |
+          cd backend
+          uv run ruff check .
+          
+      - name: Run Pytest
+        env:
+          DATABASE_URL: sqlite+aiosqlite:///:memory:
+          REDIS_URL: redis://localhost:6379
+          FIREBASE_PROJECT_ID: test-project
+          SECRET_KEY: test_secret_key_for_ci
+        run: |
+          cd backend
+          # Running tests against mock envs
+          uv run pytest tests/ -v
+
+  frontend-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+          
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+          
+      - name: Typecheck and Build
+        run: |
+          cd frontend
+          npm run build

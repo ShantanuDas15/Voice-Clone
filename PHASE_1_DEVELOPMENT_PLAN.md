@@ -42,14 +42,14 @@ By the end of Phase 1, the project must have:
 
 | # | Milestone | Description | Status |
 |---|-----------|-------------|--------|
-| 1.1 | Monorepo & Git Init | Initialize Git, GitHub remote, folder scaffold, first commit | ❌ Todo |
-| 1.2 | Docker Compose Local Dev | PostgreSQL + Redis containers for local development | ❌ Todo |
-| 1.3 | Backend Skeleton (FastAPI) | FastAPI app, config, database engine, health endpoint | ❌ Todo |
-| 1.4 | Database Models & Migrations | SQLAlchemy models from `DATABASE_DESIGN.md` + Alembic | ❌ Todo |
-| 1.5 | Firebase Auth Middleware | Firebase Admin SDK JWT verification in FastAPI | ❌ Todo |
-| 1.6 | Core API Endpoints (Auth) | User sync and profile endpoints (POST /auth/sync, GET /users/me) | ❌ Todo |
-| 1.7 | Frontend Scaffold (React+Vite) | Vite app with TypeScript, Tailwind CSS, shadcn/ui, routing | ❌ Todo |
-| 1.8 | Frontend Auth Flows | Login, Signup, Google OAuth, protected route, profile page | ❌ Todo |
+| 1.1 | Monorepo & Git Init | Initialize Git, GitHub remote, folder scaffold, first commit | ✅ Done |
+| 1.2 | Docker Compose Local Dev | PostgreSQL + Redis containers for local development | ✅ Done |
+| 1.3 | Backend Skeleton (FastAPI) | FastAPI app, config, database engine, health endpoint | ✅ Done |
+| 1.4 | Database Models & Migrations | SQLAlchemy models from `DATABASE_DESIGN.md` + Alembic | ✅ Done |
+| 1.5 | Firebase Auth Middleware | Firebase Admin SDK JWT verification in FastAPI | 🟡 Pending User Setup |
+| 1.6 | Core API Endpoints (Auth) | User sync and profile endpoints (POST /auth/sync, GET /users/me) | ✅ Done |
+| 1.7 | Frontend Scaffold (React+Vite) | Vite app with TypeScript, Tailwind CSS, shadcn/ui, routing | ✅ Done |
+| 1.8 | Frontend Auth Flows | Login, Signup, Google OAuth, protected route, profile page | ✅ Done |
 | 1.9 | CI/CD & Deployment | GitHub Actions CI, Railway backend deploy, Vercel frontend deploy | ❌ Todo |
 
 ---
@@ -79,12 +79,12 @@ voice_clone/
 ```
 
 ### Tasks
-- [ ] Create `backend/.python-version` with content `3.11.15`
-- [ ] Create `frontend/.gitkeep` placeholder
-- [ ] Create `.github/workflows/ci.yml` stub
-- [ ] Create `.env.example` with all required variable keys (no values)
-- [ ] Initialize GitHub remote (`git remote add origin <url>`)
-- [ ] Initial commit: `chore: Initialize Voice Clone monorepo scaffold`
+- [x] Create `backend/.python-version` with content `3.11.15`
+- [x] Create `frontend/.gitkeep` placeholder
+- [x] Create `.github/workflows/ci.yml` stub
+- [x] Create `.env.example` with all required variable keys (no values)
+- [x] Initialize GitHub remote (`git remote add origin <url>`)
+- [x] Initial commit: `chore: Initialize Voice Clone monorepo scaffold`
 
 ### Verification Gateway
 ```bash
@@ -119,11 +119,11 @@ Create a `docker-compose.yml` that spins up a fully isolated local dev environme
 | `worker` | `./backend/Dockerfile.worker` | — | Celery worker, shares same source mount |
 
 ### Tasks
-- [ ] Write `docker-compose.yml` with all 4 services
-- [ ] Write `backend/Dockerfile.api` (Python 3.11 + uvicorn)
-- [ ] Write `backend/Dockerfile.worker` (Python 3.11 + celery)
-- [ ] Add named volume for Postgres data persistence
-- [ ] Add health checks for `postgres` and `redis` services
+- [x] Write `docker-compose.yml` with all 4 services
+- [x] Write `backend/Dockerfile.api` (Python 3.11 + uvicorn)
+- [x] Write `backend/Dockerfile.worker` (Python 3.11 + celery)
+- [x] Add named volume for Postgres data persistence
+- [x] Add health checks for `postgres` and `redis` services
 
 ### Verification Gateway
 ```bash
@@ -206,13 +206,13 @@ httpx==0.27.x            # Async HTTP client (for tests)
 | `backend/app/api/routes/health.py` | `GET /health` — returns 200 + DB connectivity status |
 
 ### Tasks
-- [ ] Create `backend/requirements.txt` with all pinned dependencies
-- [ ] Install dependencies: `uv pip install -r backend/requirements.txt`
-- [ ] Create `app/core/config.py` with `Settings` class (DATABASE_URL, REDIS_URL, etc.)
-- [ ] Create `app/db/database.py` with async engine and `get_db` dependency
-- [ ] Create `app/main.py` with CORS, exception handlers, router registration
-- [ ] Create `GET /health` endpoint that pings the database
-- [ ] Verify FastAPI app starts without errors
+- [x] Create `backend/requirements.txt` with all pinned dependencies
+- [x] Install dependencies: `uv pip install -r backend/requirements.txt`
+- [x] Create `app/core/config.py` with `Settings` class (DATABASE_URL, REDIS_URL, etc.)
+- [x] Create `app/db/database.py` with async engine and `get_db` dependency
+- [x] Create `app/main.py` with CORS, exception handlers, router registration
+- [x] Create `GET /health` endpoint that pings the database
+- [x] Verify FastAPI app starts without errors
 
 ### Verification Gateway
 ```bash
@@ -249,13 +249,13 @@ Implement all 5 SQLAlchemy ORM models from `DATABASE_DESIGN.md`, initialize Alem
 | `backend/alembic/versions/001_initial_schema.py` | Baseline migration (auto-generated then reviewed) |
 
 ### Tasks
-- [ ] Create all 5 SQLAlchemy model files matching `DATABASE_DESIGN.md` DDL
-- [ ] Initialize Alembic: `alembic init alembic`
-- [ ] Configure `alembic/env.py` to use the async engine and import all models
-- [ ] Generate baseline migration: `alembic revision --autogenerate -m "001_initial_schema"`
-- [ ] Review generated migration for correctness (enums, triggers, partial indexes)
-- [ ] Apply migration to local Postgres: `alembic upgrade head`
-- [ ] Verify all tables and indexes exist in the database
+- [x] Create all 5 SQLAlchemy model files matching `DATABASE_DESIGN.md` DDL
+- [x] Initialize Alembic: `alembic init alembic`
+- [x] Configure `alembic/env.py` to use the async engine and import all models
+- [x] Generate baseline migration: `alembic revision --autogenerate -m "001_initial_schema"`
+- [x] Review generated migration for correctness (enums, triggers, partial indexes)
+- [x] Apply migration to local Postgres: `alembic upgrade head`
+- [x] Verify all tables and indexes exist in the database
 
 ### Verification Gateway
 ```bash
@@ -300,9 +300,9 @@ FIREBASE_SERVICE_ACCOUNT_KEY_B64=<base64_encoded_json>
 - [ ] Create Firebase project in Firebase Console (free Spark plan)
 - [ ] Enable Email/Password and Google sign-in providers
 - [ ] Download Firebase service account key JSON (gitignored)
-- [ ] Implement `verify_firebase_token()` — decodes & validates Firebase JWT
-- [ ] Implement `get_current_user()` — fetches or creates `User` record in DB after token verification
-- [ ] Apply `Depends(get_current_user)` to a test-protected endpoint
+- [x] Implement `verify_firebase_token()` — decodes & validates Firebase JWT
+- [x] Implement `get_current_user()` — fetches or creates `User` record in DB after token verification
+- [x] Apply `Depends(get_current_user)` to a test-protected endpoint (`/users/me`)
 
 ### Verification Gateway
 ```bash
@@ -341,12 +341,12 @@ Implement the two foundational API endpoints that power the auth flow: a user sy
 | `backend/app/api/routes/users.py` | `GET /users/me` route handler |
 
 ### Tasks
-- [ ] Create Pydantic schemas for `UserResponse`
-- [ ] Implement `user_service.upsert_user()` — async upsert on `firebase_uid`
-- [ ] Implement `user_service.get_user_with_stats()` — joined fetch
-- [ ] Create route handlers with proper dependency injection
-- [ ] Register routes in `app/api/router.py` under `/api/v1` prefix
-- [ ] Write unit tests for service functions
+- [x] Create Pydantic schemas for `UserResponse`
+- [x] Implement `user_service.upsert_user()` — async upsert on `firebase_uid`
+- [x] Implement `user_service.get_user_with_stats()` — joined fetch
+- [x] Create route handlers with proper dependency injection
+- [x] Register routes in `app/api/router.py` under `/api/v1` prefix
+- [x] Write unit tests for service functions
 
 ### Verification Gateway
 ```bash
@@ -438,15 +438,15 @@ wavesurfer.js@7.x
 | `frontend/package.json` | NPM manifest |
 
 ### Tasks
-- [ ] Scaffold: `npm create vite@latest frontend -- --template react-ts`
-- [ ] Install all dependencies listed above
-- [ ] Configure Tailwind CSS + shadcn/ui init
-- [ ] Create `lib/firebase.ts` (reads `VITE_FIREBASE_*` env vars)
-- [ ] Create `lib/axios.ts` with auto-injecting Firebase JWT interceptor
-- [ ] Create Zustand `authStore` with `onAuthStateChanged` listener
-- [ ] Create `<PrivateRoute>` component
-- [ ] Configure all routes in `App.tsx`
-- [ ] Verify `npm run dev` starts without TypeScript or Vite errors
+- [x] Scaffold: `npm create vite@latest frontend -- --template react-ts`
+- [x] Install all dependencies listed above
+- [x] Configure Tailwind CSS + shadcn/ui init
+- [x] Create `lib/firebase.ts` (reads `VITE_FIREBASE_*` env vars)
+- [x] Create `lib/axios.ts` with auto-injecting Firebase JWT interceptor
+- [x] Create Zustand `authStore` with `onAuthStateChanged` listener
+- [x] Create `<PrivateRoute>` component
+- [x] Configure all routes in `App.tsx`
+- [x] Verify `npm run dev` starts without TypeScript or Vite errors
 
 ### Verification Gateway
 ```bash
@@ -494,14 +494,14 @@ Redirect to /dashboard
 ```
 
 ### Tasks
-- [ ] Build `Landing.tsx` with hero layout and navigation CTAs
-- [ ] Build `Login.tsx` with `react-hook-form` + `zod` validation + Firebase email login
-- [ ] Build `Signup.tsx` with email registration + Firebase `createUserWithEmailAndPassword`
-- [ ] Add Google OAuth button using Firebase `signInWithPopup(GoogleAuthProvider)`
-- [ ] Wire post-login API sync call (`authStore` action)
-- [ ] Build `Dashboard.tsx` (protected, placeholder content)
-- [ ] Build `Profile.tsx` — calls `GET /api/v1/users/me` and displays data
-- [ ] Implement logout functionality (Firebase `signOut` + clear Zustand store)
+- [x] Build `Landing.tsx` with hero layout and navigation CTAs
+- [x] Build `Login.tsx` with `react-hook-form` + `zod` validation + Firebase email login
+- [x] Build `Signup.tsx` with email registration + Firebase `createUserWithEmailAndPassword`
+- [x] Add Google OAuth button using Firebase `signInWithPopup(GoogleAuthProvider)`
+- [x] Wire post-login API sync call (`authStore` action)
+- [x] Build `Dashboard.tsx` (protected, placeholder content)
+- [x] Build `Profile.tsx` — calls `GET /api/v1/users/me` and displays data
+- [x] Implement logout functionality (Firebase `signOut` + clear Zustand store)
 
 ### Verification Gateway
 
@@ -672,4 +672,11 @@ Phase 1 is **complete and ready for Phase 2** when ALL of the following are true
 
 | Date | Milestone | Git Commit | Notes |
 |------|-----------|-----------|-------|
-| — | — | — | Phase 1 not yet started |
+| 2026-08-16 | 1.1 | addb1e2 | Initialized Git, scaffolded base folders, added env template, initial commit |
+| 2026-08-16 | 1.2 | 2473aa4 | Created docker-compose.yml, Dockerfile.api, Dockerfile.worker, and .env |
+| 2026-08-16 | 1.3 | 15c2c00 | Scaffolded FastAPI backend, connected asyncpg engine, tested health endpoint |
+| 2026-08-16 | 1.4 | 795b9c2 | Created DB models, injected custom triggers, applied Alembic baseline |
+| 2026-08-16 | 1.5 | 6b69638 | Implemented Firebase Auth middleware and GET /users/me protected endpoint |
+| 2026-08-16 | 1.6 | e8d2bcb | Implemented core auth API routes, user schemas, and async service logic |
+| 2026-08-17 | 1.7 | c629fb4 | Frontend scaffold with Vite, React, TS, Tailwind, shadcn, and Firebase setup |
+| 2026-08-17 | 1.8 | f09dc54 | Implemented Frontend Auth Flows, Login, Signup, Landing, Dashboard, and Profile pages |
