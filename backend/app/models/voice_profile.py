@@ -21,6 +21,7 @@ class VoiceProfile(Base):
     description = Column(String, nullable=True)
     
     embedding_r2_path = Column(String, nullable=True)
+    external_voice_id = Column(String, nullable=True) # ID returned by ElevenLabs/TTS engine
     status = Column(Enum(VoiceProfileStatus, name="voice_profile_status"), nullable=False, default=VoiceProfileStatus.pending)
     processing_error = Column(String, nullable=True)
     

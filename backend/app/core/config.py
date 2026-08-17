@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     CLOUDFLARE_R2_SECRET_ACCESS_KEY: Optional[str] = None
     CLOUDFLARE_R2_BUCKET_NAME: Optional[str] = None
     CLOUDFLARE_R2_ENDPOINT_URL: Optional[str] = None
+    
+    ELEVENLABS_API_KEY: Optional[str] = None
 
     model_config = SettingsConfigDict(
         env_file="../.env", # Path relative to where we run uvicorn in dev
