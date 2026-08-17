@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuthStore } from './store/authStore';
 import PrivateRoute from './components/layout/PrivateRoute';
 
-// Placeholder Pages
-const Login = () => <div className="p-8">Login Page</div>;
-const Dashboard = () => <div className="p-8">Dashboard Page</div>;
+import Landing from './pages/Landing';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import AppLayout from './components/layout/AppLayout';
+
+// Placeholder Pages for Phase 2
 const Generate = () => <div className="p-8">Generate Audio Page</div>;
 const History = () => <div className="p-8">History Page</div>;
 const Settings = () => <div className="p-8">Settings Page</div>;
@@ -21,15 +26,19 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         
         {/* Protected Routes */}
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/generate" element={<Generate />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/settings" element={<Settings />} />
+          <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/generate" element={<Generate />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/settings" element={<Settings />} />
+          </Route>
         </Route>
 
         {/* Catch all */}
