@@ -2,7 +2,7 @@ import uuid
 from typing import Optional
 from sqlalchemy.orm import Session
 from app.core.celery_app import celery_app
-from app.db.session import SessionLocal
+from app.db.database import SessionLocal
 from app.models.generation import GenerationHistory, GenerationStatus
 from app.models.voice_profile import VoiceProfile
 from app.services.storage.r2_client import r2_storage
