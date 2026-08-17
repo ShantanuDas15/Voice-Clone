@@ -8,10 +8,11 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import Voices from './pages/Voices';
 import AppLayout from './components/layout/AppLayout';
+import Generate from './pages/Generate';
 
 // Placeholder Pages for Phase 2
-const Generate = () => <div className="p-8">Generate Audio Page</div>;
 const History = () => <div className="p-8">History Page</div>;
 const Settings = () => <div className="p-8">Settings Page</div>;
 const NotFound = () => <div className="p-8">404 Not Found</div>;
@@ -35,6 +36,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/voices" element={<Voices />} />
             <Route path="/generate" element={<Generate />} />
             <Route path="/history" element={<History />} />
             <Route path="/settings" element={<Settings />} />

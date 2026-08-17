@@ -9,6 +9,7 @@ const AppLayout = () => {
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'Voice Profiles', href: '/voices', icon: Mic2 },
     { name: 'Generate', href: '/generate', icon: Mic2 },
   ];
 
