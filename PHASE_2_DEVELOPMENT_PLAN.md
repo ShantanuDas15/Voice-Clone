@@ -134,7 +134,7 @@ By the end of Phase 2, the following must be achieved:
 | 2.3 | Cloudflare R2 Provisioning | Bucket creation, CORS config, env var wiring | 🔴 Not Started |
 | 2.4 | Voice Cloning Pipeline E2E Test | Validate: upload → ElevenLabs → DB → ready | ✅ Done |
 | 2.5 | TTS Generation Pipeline E2E Test | Validate: text → Celery → ElevenLabs → R2 → presigned URL | ✅ Done |
-| 2.6 | WaveSurfer.js Audio Player | Integrate waveform player; replace native audio element | 🔴 Not Started |
+| 2.6 | WaveSurfer.js Audio Player | Integrate waveform player; replace native audio element | ✅ Done |
 | 2.7 | Dashboard Overhaul | Live stats, usage meter, recent history feed | 🔴 Not Started |
 | 2.8 | Voice Profile Detail Page | /voices/:id — voice info, history, generate, delete | 🔴 Not Started |
 | 2.9 | Error Handling & UX Polish | Toast notifications, loading skeletons, empty states | 🔴 Not Started |

@@ -7,7 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Badge } from "../components/ui/badge";
 import { ScrollArea } from "../components/ui/scroll-area";
-import { Loader2, Download, Wand2 } from "lucide-react";
+import { Loader2, Wand2 } from "lucide-react";
+import { WavePlayer } from "../components/audio";
 
 interface Voice {
   id: string;
@@ -210,13 +211,11 @@ export default function Generate() {
                         </div>
                         
                         {gen.status === 'completed' && gen.audio_url && (
-                          <div className="flex items-center gap-2 pt-2 border-t border-zinc-700/50">
-                            <audio controls src={gen.audio_url} className="h-8 w-full max-w-[200px]" />
-                            <Button size="icon" variant="ghost" className="h-8 w-8 text-zinc-400 hover:text-white" asChild>
-                              <a href={gen.audio_url} download target="_blank" rel="noreferrer">
-                                <Download className="h-4 w-4" />
-                              </a>
-                            </Button>
+                          <div className="pt-2 border-t border-zinc-700/50">
+                            <WavePlayer 
+                              audioUrl={gen.audio_url} 
+                              downloadFilename={`generation_${gen.id.substring(0, 8)}.mp3`}
+                            />
                           </div>
                         )}
                         {gen.status === 'failed' && (
