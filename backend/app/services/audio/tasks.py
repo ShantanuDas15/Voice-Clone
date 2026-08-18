@@ -34,13 +34,19 @@ def task_generate_speech(self, generation_id: str, text: str, voice_id: str):
         r2_path = f"generations/{generation.user_id}/{generation.id}.mp3"
         r2_storage.upload_file_bytes(audio_bytes, r2_path, content_type="audio/mpeg")
         
-        # 4. Update database record
+        # 4. Update generation record
         generation.status = GenerationStatus.completed
         generation.output_r2_path = r2_path
-        
-        # Optional: We could parse the MP3 headers to get true duration, 
-        # but for now we leave it null or estimate it.
         db.commit()
+
+        # 5. Update usage stats
+        from app.models.usage_stats import UserUsageStats
+        stats = db.query(UserUsageStats).filter(UserUsageStats.user_id == generation.user_id).first()
+        if stats:
+            stats.chars_generated_this_month = (stats.chars_generated_this_month or 0) + len(text)
+            stats.generations_this_month = (stats.generations_this_month or 0) + 1
+            stats.total_generations = (stats.total_generations or 0) + 1
+            db.commit()
         
         return {"status": "success", "r2_path": r2_path}
         

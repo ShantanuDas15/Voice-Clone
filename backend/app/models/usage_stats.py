@@ -16,6 +16,7 @@ class UserUsageStats(Base):
     storage_used_bytes = Column(BigInteger, nullable=False, default=0)
     
     generations_this_month = Column(Integer, nullable=False, default=0)
+    chars_generated_this_month = Column(BigInteger, nullable=False, default=0)
     last_reset_at = Column(DateTime(timezone=True), server_default=text("date_trunc('month', NOW())"), nullable=False)
     
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
