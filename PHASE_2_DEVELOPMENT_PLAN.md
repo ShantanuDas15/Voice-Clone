@@ -129,11 +129,11 @@ By the end of Phase 2, the following must be achieved:
 
 | # | Milestone | Description | Status |
 |---|-----------|-------------|--------|
-| 2.1 | API Refactor & Pydantic Schemas | Harden all routes with proper schemas, async DB, shared deps | 🔴 Not Started |
-| 2.2 | Usage Tracking & Quota Enforcement | Track char usage + enforce ElevenLabs limits per user | 🔴 Not Started |
+| 2.1 | API Refactor & Pydantic Schemas | Harden all routes with proper schemas, async DB, shared deps | ✅ Done |
+| 2.2 | Usage Tracking & Quota Enforcement | Track char usage + enforce ElevenLabs limits per user | ✅ Done |
 | 2.3 | Cloudflare R2 Provisioning | Bucket creation, CORS config, env var wiring | 🔴 Not Started |
-| 2.4 | Voice Cloning Pipeline E2E Test | Validate: upload → ElevenLabs → DB → ready | 🔴 Not Started |
-| 2.5 | TTS Generation Pipeline E2E Test | Validate: text → Celery → ElevenLabs → R2 → presigned URL | 🔴 Not Started |
+| 2.4 | Voice Cloning Pipeline E2E Test | Validate: upload → ElevenLabs → DB → ready | ✅ Done |
+| 2.5 | TTS Generation Pipeline E2E Test | Validate: text → Celery → ElevenLabs → R2 → presigned URL | 🟡 In Progress |
 | 2.6 | WaveSurfer.js Audio Player | Integrate waveform player; replace native audio element | 🔴 Not Started |
 | 2.7 | Dashboard Overhaul | Live stats, usage meter, recent history feed | 🔴 Not Started |
 | 2.8 | Voice Profile Detail Page | /voices/:id — voice info, history, generate, delete | 🔴 Not Started |
@@ -691,11 +691,11 @@ Phase 2 is **complete** when ALL of the following are verified:
 | Date | Milestone | Git Commit | Notes |
 |------|-----------|-----------|-------|
 | 2026-08-18 | Pre-Phase-2 | c05b487 | Fixed SessionLocal ImportError — backend starts cleanly |
-| — | 2.1 | — | Pending |
-| — | 2.2 | — | Pending |
+| 2026-08-18 | 2.1 | 25d7be4 | API refactor: async routes, shared get_current_user, Pydantic schemas, GET+DELETE /voices/:id |
+| 2026-08-18 | 2.2 | 25d7be4 | Usage tracking: chars_generated_this_month added; quota check in generations.py |
 | — | 2.3 | — | Pending |
-| — | 2.4 | — | Pending |
-| — | 2.5 | — | Pending |
+| 2026-08-18 | 2.4 | e778eec | Voice Cloning E2E Test: Unit tests and integration tests added and passing |
+| 2026-08-18 | 2.5 | 25d7be4 | TTS model upgraded to eleven_turbo_v2; generation task tracks char usage |
 | — | 2.6 | — | Pending |
 | — | 2.7 | — | Pending |
 | — | 2.8 | — | Pending |
