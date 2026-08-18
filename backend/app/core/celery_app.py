@@ -15,10 +15,8 @@ celery_app.conf.update(
     result_serializer="json",
     timezone="UTC",
     enable_utc=True,
-    # Example task routing for Phase 2:
-    # task_routes={
-    #     "app.services.audio.tasks.*": {"queue": "audio_processing"},
-    # }
+    # Suppress CPendingDeprecationWarning in Celery 5.x
+    broker_connection_retry_on_startup=True,
 )
 
 # Optional: Auto-discover tasks once we create them
