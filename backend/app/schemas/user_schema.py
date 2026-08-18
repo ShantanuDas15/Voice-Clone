@@ -31,3 +31,10 @@ class UserResponse(BaseModel):
 
 class UserWithStatsResponse(UserResponse):
     usage_stats: Optional[UsageStatsResponse] = None
+
+class UserStatsResponse(BaseModel):
+    voice_count: int
+    generation_count: int
+    chars_used_this_month: int
+    chars_remaining: int
+    monthly_limit: int
