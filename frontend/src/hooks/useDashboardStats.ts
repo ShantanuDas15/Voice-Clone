@@ -45,8 +45,10 @@ export const useDashboardStats = () => {
     error: null,
   });
 
-  const fetchDashboardData = useCallback(async () => {
-    setData((prev) => ({ ...prev, isLoading: true, error: null }));
+  const fetchDashboardData = useCallback(async (showLoading = true) => {
+    if (showLoading) {
+      setData((prev) => ({ ...prev, isLoading: true, error: null }));
+    }
     try {
       // Fetch stats, recent generations, and user voices concurrently
       const [statsRes, gensRes, voicesRes] = await Promise.all([
@@ -73,8 +75,17 @@ export const useDashboardStats = () => {
   }, []);
 
   useEffect(() => {
-    fetchDashboardData();
+    // Initial fetch (shows loading skeleton)
+    fetchDashboardData(true);
+
+    // Set up polling interval (every 5 seconds, silent background update)
+    const intervalId = setInterval(() => {
+      fetchDashboardData(false);
+    }, 5000);
+
+    // Clean up interval on unmount
+    return () => clearInterval(intervalId);
   }, [fetchDashboardData]);
 
-  return { ...data, refetch: fetchDashboardData };
+  return { ...data, refetch: () => fetchDashboardData(true) };
 };
