@@ -138,7 +138,7 @@ By the end of Phase 2, the following must be achieved:
 | 2.7 | Dashboard Overhaul | Live stats, usage meter, recent history feed | ✅ Done |
 | 2.8 | Voice Profile Detail Page | /voices/:id — voice info, history, generate, delete | ✅ Done |
 | 2.9 | Error Handling & UX Polish | Toast notifications, loading skeletons, empty states | ✅ Done |
-| 2.10 | Backend Tests (Phase 2) | Unit + integration tests for all new endpoints and tasks | 🔴 Not Started |
+| 2.10 | Backend Tests (Phase 2) | Unit + integration tests for all new endpoints and tasks | ✅ Done |
 | 2.11 | Frontend TypeScript Cleanup | Remove any types, add interfaces, tsc --noEmit clean | 🔴 Not Started |
 | 2.12 | Production Deployment Validation | Env vars checklist, Railway redeploy, E2E smoke test | 🔴 Not Started |
 
@@ -700,7 +700,7 @@ Phase 2 is **complete** when ALL of the following are verified:
 | 2026-08-18 | 2.7 | 564a786 | Dashboard UI rewritten with stats API integration |
 | 2026-08-19 | 2.8 | 6ee11e0 | VoiceDetail UI implemented with deletion and generations feed |
 | 2026-08-19 | 2.9 | 7d796ac | Added global API interceptors, error toasts, and skeletons |
-| — | 2.10 | — | Pending |
+| 2026-08-19 | 2.10 | 3bdd769 | Added quota limit logic and schema validation unit tests |
 | — | 2.11 | — | Pending |
 | — | 2.12 | — | Pending |
 
