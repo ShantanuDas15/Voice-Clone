@@ -43,6 +43,7 @@ services:
       - DATABASE_URL=postgresql+asyncpg://voiceclone:password@postgres:5432/voiceclone
       - REDIS_URL=redis://redis:6379/0
       - SECRET_KEY=dev-secret-key-voice-clone-local
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
     depends_on:
       postgres:
         condition: service_healthy
@@ -62,6 +63,7 @@ services:
       - DATABASE_URL=postgresql+asyncpg://voiceclone:password@postgres:5432/voiceclone
       - REDIS_URL=redis://redis:6379/0
       - SECRET_KEY=dev-secret-key-voice-clone-local
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
     depends_on:
       postgres:
         condition: service_healthy
