@@ -9,7 +9,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
-import { Mail, Lock, Loader2 } from 'lucide-react';
+import { Mail, Lock, Loader2, AudioWaveform, ArrowLeft } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
@@ -66,7 +66,16 @@ const Login = () => {
         <div className="absolute -bottom-[10%] left-[20%] w-[40%] h-[40%] rounded-full bg-pink-500/20 dark:bg-pink-600/10 blur-[120px] animate-blob animation-delay-4000 mix-blend-multiply dark:mix-blend-lighten" />
       </div>
 
-      <div className="w-full max-w-md animate-in fade-in slide-in-from-bottom-8 duration-700">
+      {/* Back Button */}
+      <Link 
+        to="/" 
+        className="absolute top-6 left-6 md:top-10 md:left-10 flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border border-slate-200 dark:border-slate-800 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white shadow-sm hover:shadow-md transition-all group z-10"
+      >
+        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+        Back to Home
+      </Link>
+
+      <div className="w-full max-w-md animate-in fade-in slide-in-from-bottom-8 duration-700 mt-12 md:mt-0">
         <div className="flex flex-col items-center mb-8">
           <Link to="/" className="flex items-center gap-2 group cursor-pointer mb-8 hover:opacity-80 transition-opacity">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-md">

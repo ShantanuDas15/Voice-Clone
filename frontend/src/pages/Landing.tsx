@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { useAuthStore } from '../store/authStore';
-import { Mic, Wand2, Zap, Shield, AudioWaveform, ChevronRight, Play } from 'lucide-react';
+import { Mic, Wand2, Zap, Shield, AudioWaveform, ChevronRight } from 'lucide-react';
 
 const Landing = () => {
   const { user } = useAuthStore();
