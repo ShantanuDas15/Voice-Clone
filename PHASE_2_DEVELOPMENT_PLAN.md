@@ -699,7 +699,7 @@ Phase 2 is **complete** when ALL of the following are verified:
 | — | 2.6 | — | Pending |
 | 2026-08-18 | 2.7 | b9873f5 | Dashboard UI rewritten with stats API integration |
 | 2026-08-19 | 2.8 | 4cc1898 | VoiceDetail UI implemented with deletion and generations feed |
-| — | 2.9 | — | Pending |
+| 2026-08-19 | 2.9 | ec49e4b | Added global API interceptors, error toasts, and skeletons |
 | — | 2.10 | — | Pending |
 | — | 2.11 | — | Pending |
 | — | 2.12 | — | Pending |

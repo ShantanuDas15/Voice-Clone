@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { toast } from "../hooks/use-toast";
 import api from "../lib/axios";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -27,7 +28,7 @@ export default function Voices() {
 
   const fetchVoices = async () => {
     try {
-      const { data } = await api.get("/voices/");
+      const { data } = await api.get("/api/v1/voices/");
       setVoices(data.user_voices);
     } catch (error) {
       console.error("Failed to fetch voices:", error);
@@ -42,7 +43,7 @@ export default function Voices() {
       formData.append("name", newVoiceName);
       formData.append("description", "Custom cloned voice");
 
-      const { data } = await api.post("/voices/", formData);
+      const { data } = await api.post("/api/v1/voices/", formData);
       setVoices([...voices, data]);
       setNewVoiceName("");
       setSelectedVoiceId(data.id);
@@ -64,8 +65,13 @@ export default function Voices() {
         formData.append("files", file);
       });
 
-      await api.post(`/voices/${selectedVoiceId}/samples`, formData);
+      await api.post(`/api/v1/voices/${selectedVoiceId}/samples`, formData);
       
+      toast({
+        title: "Success",
+        description: "Voice is being cloned!",
+      });
+
       // Reset selected voice and refresh
       setSelectedVoiceId(null);
       if (fileInputRef.current) {

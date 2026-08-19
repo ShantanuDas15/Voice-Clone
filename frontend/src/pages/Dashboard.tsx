@@ -2,17 +2,41 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
-import { Mic2, Activity, PlayCircle, Settings2, Loader2, ArrowRight } from 'lucide-react';
+import { Mic2, Activity, PlayCircle, Settings2, ArrowRight } from 'lucide-react';
 import { useDashboardStats } from '../hooks/useDashboardStats';
 import { formatDistanceToNow } from 'date-fns';
+import { Skeleton } from '../components/ui/loading-skeleton';
 
 const Dashboard = () => {
   const { stats, recentGenerations, userVoices, isLoading, error } = useDashboardStats();
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="space-y-8 animate-in fade-in duration-500">
+        <div>
+          <Skeleton className="h-10 w-48 mb-2" />
+          <Skeleton className="h-5 w-96" />
+        </div>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[1, 2, 3, 4].map(i => (
+            <Card key={i}>
+              <CardHeader className="pb-2">
+                <Skeleton className="h-4 w-24" />
+              </CardHeader>
+              <CardContent>
+                <Skeleton className="h-8 w-16" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <Card>
+          <CardHeader>
+            <Skeleton className="h-6 w-48" />
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-3 w-full rounded-full" />
+          </CardContent>
+        </Card>
       </div>
     );
   }

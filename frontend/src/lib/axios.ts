@@ -1,3 +1,4 @@
+import { toast } from "../hooks/use-toast";
 import axios from "axios";
 import { auth } from "./firebase";
 
@@ -18,6 +19,29 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Determine the error message
+    let errorMessage = "An unexpected error occurred.";
+    if (!error.response) {
+      errorMessage = "Connection failed. Please check your network.";
+    } else if (error.response.data && error.response.data.detail) {
+      errorMessage = error.response.data.detail;
+    } else if (error.message) {
+      errorMessage = error.message;
+    }
+
+    toast({
+      variant: "destructive",
+      title: "Error",
+      description: errorMessage,
+    });
+
     return Promise.reject(error);
   }
 );

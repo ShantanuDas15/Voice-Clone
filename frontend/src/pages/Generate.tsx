@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { toast } from "../hooks/use-toast";
+import { Skeleton } from "../components/ui/loading-skeleton";
 
 import api from "../lib/axios";
 import { Button } from "../components/ui/button";
@@ -24,6 +26,7 @@ export default function Generate() {
   const [voices, setVoices] = useState<{ user_voices: Voice[]; engine_voices: Voice[] }>({ user_voices: [], engine_voices: [] });
   const [selectedVoice, setSelectedVoice] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isLoadingVoices, setIsLoadingVoices] = useState(true);
   const [generations, setGenerations] = useState<any[]>([]);
   const [currentPollId, setCurrentPollId] = useState<string | null>(null);
 
@@ -44,16 +47,19 @@ export default function Generate() {
 
   const fetchVoices = async () => {
     try {
-      const { data } = await api.get("/voices/");
+      setIsLoadingVoices(true);
+      const { data } = await api.get("/api/v1/voices/");
       setVoices(data);
     } catch (error) {
       console.error("Failed to fetch voices:", error);
+    } finally {
+      setIsLoadingVoices(false);
     }
   };
 
   const fetchGenerations = async () => {
     try {
-      const { data } = await api.get("/generations/");
+      const { data } = await api.get("/api/v1/generations/");
       setGenerations(data);
     } catch (error) {
       console.error("Failed to fetch generations:", error);
@@ -62,7 +68,7 @@ export default function Generate() {
 
   const pollGeneration = async (id: string) => {
     try {
-      const { data } = await api.get(`/generations/${id}`);
+      const { data } = await api.get(`/api/v1/generations/${id}`);
       if (data.status === "completed" || data.status === "failed") {
         setCurrentPollId(null);
         setIsGenerating(false);
@@ -75,6 +81,16 @@ export default function Generate() {
 
   const handleGenerate = async () => {
     if (!text || !selectedVoice) return;
+    
+    if (text.length > 5000) {
+      toast({
+        variant: "destructive",
+        title: "Validation Error",
+        description: "Text cannot exceed 5000 characters."
+      });
+      return;
+    }
+
     setIsGenerating(true);
 
     // Determine if it's a custom voice or engine voice
@@ -82,7 +98,7 @@ export default function Generate() {
     // If engine voice, the selectedVoice is the actual voice_id string
     
     try {
-      const { data } = await api.post("/generations/", {
+      const { data } = await api.post("/api/v1/generations/", {
         text,
         voice_id: selectedVoice,
         is_custom_voice: isCustom
@@ -123,29 +139,33 @@ export default function Generate() {
                 <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-zinc-300">
                   Voice Model
                 </label>
-                <Select value={selectedVoice} onValueChange={setSelectedVoice}>
-                  <SelectTrigger className="w-full bg-zinc-800/50 border-zinc-700 focus:ring-purple-500">
-                    <SelectValue placeholder="Select a voice..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-zinc-800 border-zinc-700">
-                    {voices.user_voices.length > 0 && (
-                      <optgroup label="Your Cloned Voices" className="text-xs font-semibold text-zinc-400 p-2">
-                        {voices.user_voices.map((v) => (
-                          <SelectItem key={v.id} value={v.id} disabled={v.status !== 'ready'}>
-                            {v.name} {v.status !== 'ready' && `(${v.status})`}
+                {isLoadingVoices ? (
+                  <Skeleton className="h-10 w-full rounded-md" />
+                ) : (
+                  <Select value={selectedVoice} onValueChange={setSelectedVoice}>
+                    <SelectTrigger className="w-full bg-zinc-800/50 border-zinc-700 focus:ring-purple-500">
+                      <SelectValue placeholder="Select a voice..." />
+                    </SelectTrigger>
+                    <SelectContent className="bg-zinc-800 border-zinc-700">
+                      {voices.user_voices.length > 0 && (
+                        <optgroup label="Your Cloned Voices" className="text-xs font-semibold text-zinc-400 p-2">
+                          {voices.user_voices.map((v) => (
+                            <SelectItem key={v.id} value={v.id} disabled={v.status !== 'ready'}>
+                              {v.name} {v.status !== 'ready' && `(${v.status})`}
+                            </SelectItem>
+                          ))}
+                        </optgroup>
+                      )}
+                      <optgroup label="Premium Library" className="text-xs font-semibold text-zinc-400 p-2">
+                        {voices.engine_voices.map((v) => (
+                          <SelectItem key={v.voice_id} value={v.voice_id as string}>
+                            {v.name}
                           </SelectItem>
                         ))}
                       </optgroup>
-                    )}
-                    <optgroup label="Premium Library" className="text-xs font-semibold text-zinc-400 p-2">
-                      {voices.engine_voices.map((v) => (
-                        <SelectItem key={v.voice_id} value={v.voice_id as string}>
-                          {v.name}
-                        </SelectItem>
-                      ))}
-                    </optgroup>
-                  </SelectContent>
-                </Select>
+                    </SelectContent>
+                  </Select>
+                )}
               </div>
 
               <div className="space-y-2">
