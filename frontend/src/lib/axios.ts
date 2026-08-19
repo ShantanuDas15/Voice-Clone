@@ -1,6 +1,7 @@
 import { toast } from "../hooks/use-toast";
 import axios from "axios";
 import { auth } from "./firebase";
+import { useAuthStore } from "../store/authStore";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000",
@@ -17,7 +18,7 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     } else {
       // Local dev bypass fallback
-      const state = (await import('../store/authStore')).useAuthStore.getState();
+      const state = useAuthStore.getState();
       if (state.user?.uid === 'local-dev-uid' || state.user?.uid === 'local-dev-google-uid') {
         config.headers.Authorization = `Bearer local-dev-token`;
       }

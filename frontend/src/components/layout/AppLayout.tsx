@@ -1,19 +1,15 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
-import { useThemeStore, applyTheme } from '../../store/themeStore';
-import { useEffect } from 'react';
+import { useThemeStore } from '../../store/themeStore';
 import { Button } from '../ui/button';
-import { LogOut, User, LayoutDashboard, Mic2, Moon, Sun } from 'lucide-react';
+import { LogOut, User, LayoutDashboard, Mic2, Moon, Sun, AudioWaveform } from 'lucide-react';
 
 const AppLayout = () => {
   const { logout, user } = useAuthStore();
   const { theme, setTheme } = useThemeStore();
   const location = useLocation();
 
-  // Ensure theme is applied on initial load
-  useEffect(() => {
-    applyTheme(theme);
-  }, []);
+
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -29,8 +25,13 @@ const AppLayout = () => {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <Link to="/dashboard" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600">
-                  VoiceClone
+                <Link to="/dashboard" className="flex items-center gap-2.5 group">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform">
+                    <AudioWaveform className="w-5 h-5 text-white" />
+                  </div>
+                  <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                    Voice<span className="text-purple-600 dark:text-purple-400">Clone</span>
+                  </span>
                 </Link>
               </div>
               <div className="hidden sm:-my-px sm:ml-8 sm:flex sm:space-x-8">
@@ -41,11 +42,10 @@ const AppLayout = () => {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors ${
-                        isActive
+                      className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors ${isActive
                           ? 'border-blue-500 text-foreground'
                           : 'border-transparent text-muted-foreground hover:border-muted hover:text-foreground'
-                      }`}
+                        }`}
                     >
                       <Icon className="mr-2 h-4 w-4" />
                       {item.name}
@@ -67,9 +67,9 @@ const AppLayout = () => {
                   )}
                 </Button>
               </Link>
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 className="rounded-full"
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
               >

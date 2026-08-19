@@ -15,4 +15,7 @@ export default defineConfig({
       "@": path.resolve(import.meta.dirname, "./src"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1500, // Suppress >500kb chunk warnings
+  }
 })

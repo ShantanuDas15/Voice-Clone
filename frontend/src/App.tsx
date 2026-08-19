@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from './components/ui/toaster';
 import { useAuthStore } from './store/authStore';
+import { useThemeStore, applyTheme } from './store/themeStore';
 import PrivateRoute from './components/layout/PrivateRoute';
 
 import Landing from './pages/Landing';
@@ -21,10 +22,16 @@ const NotFound = () => <div className="p-8">404 Not Found</div>;
 
 function App() {
   const { initializeAuthListener } = useAuthStore();
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     initializeAuthListener();
   }, [initializeAuthListener]);
+
+  // Ensure theme is applied globally on initial load (for all pages including Landing/Login)
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   return (
     <Router>
