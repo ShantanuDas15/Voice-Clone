@@ -9,6 +9,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Voices from './pages/Voices';
+import VoiceDetail from './pages/VoiceDetail';
 import AppLayout from './components/layout/AppLayout';
 import Generate from './pages/Generate';
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/voices" element={<Voices />} />
+            <Route path="/voices/:id" element={<VoiceDetail />} />
             <Route path="/generate" element={<Generate />} />
             <Route path="/history" element={<History />} />
             <Route path="/settings" element={<Settings />} />

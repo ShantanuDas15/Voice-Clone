@@ -12,6 +12,8 @@ from app.models.voice_profile import VoiceProfile, VoiceProfileStatus
 from app.services.audio.tasks import task_process_voice_profile
 from app.services.audio.tts_engine import tts_engine
 from app.schemas.voice_schema import VoiceResponse, SampleUploadResponse, VoiceListResponse
+from app.schemas.generation_schema import GenerationListItem
+from app.models.generation import GenerationHistory
 from typing import List
 
 router = APIRouter()
@@ -196,3 +198,41 @@ async def upload_samples(
         status="processing",
         message=f"Voice cloning started with {len(files)} sample(s). Check status via GET /voices/{voice_id}."
     )
+
+@router.get("/{voice_id}/generations", response_model=list[GenerationListItem])
+async def list_voice_generations(
+    voice_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """List generation history for a specific custom voice profile."""
+    # Ensure the voice belongs to the user
+    voice_result = await db.execute(
+        select(VoiceProfile).where(
+            VoiceProfile.id == voice_id,
+            VoiceProfile.user_id == current_user.id
+        )
+    )
+    voice = voice_result.scalar_one_or_none()
+    
+    if not voice:
+        raise HTTPException(status_code=404, detail="Voice profile not found")
+        
+    result = await db.execute(
+        select(GenerationHistory)
+        .where(GenerationHistory.voice_profile_id == voice_id)
+        .order_by(GenerationHistory.created_at.desc())
+        .limit(50)
+    )
+    generations = result.scalars().all()
+    
+    return [
+        GenerationListItem(
+            id=str(g.id),
+            status=g.status.value,
+            text=g.input_text[:80] + "..." if len(g.input_text) > 80 else g.input_text,
+            created_at=g.created_at,
+        )
+        for g in generations
+    ]
+
