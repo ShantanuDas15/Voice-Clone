@@ -10,6 +10,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
 import { Mail, Lock, Loader2, AudioWaveform, ArrowLeft } from 'lucide-react';
+import { useAuthStore } from '../store/authStore';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address.'),
@@ -31,6 +32,15 @@ const Login = () => {
     try {
       setIsLoading(true);
       setAuthError(null);
+      
+      // Local dev bypass if using dummy keys
+      if (auth.app.options.apiKey?.includes('DummyKey')) {
+        console.warn("Using dummy Firebase credentials. Bypassing actual authentication for local development.");
+        useAuthStore.getState().setAuthUser({ uid: 'local-dev-uid', email: data.email } as any);
+        navigate('/dashboard');
+        return;
+      }
+
       await signInWithEmailAndPassword(auth, data.email, data.password);
       // authStore will handle the sync and state update
       navigate('/dashboard');
@@ -46,6 +56,15 @@ const Login = () => {
     try {
       setIsLoading(true);
       setAuthError(null);
+      
+      // Local dev bypass if using dummy keys
+      if (auth.app.options.apiKey?.includes('DummyKey')) {
+        console.warn("Using dummy Firebase credentials. Bypassing actual Google authentication for local development.");
+        useAuthStore.getState().setAuthUser({ uid: 'local-dev-google-uid', email: 'googleuser@example.com', displayName: 'Google User' } as any);
+        navigate('/dashboard');
+        return;
+      }
+
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
       navigate('/dashboard');
