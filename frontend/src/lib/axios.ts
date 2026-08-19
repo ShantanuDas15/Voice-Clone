@@ -15,6 +15,12 @@ api.interceptors.request.use(
     if (user) {
       const token = await user.getIdToken();
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      // Local dev bypass fallback
+      const state = (await import('../store/authStore')).useAuthStore.getState();
+      if (state.user?.uid === 'local-dev-uid' || state.user?.uid === 'local-dev-google-uid') {
+        config.headers.Authorization = `Bearer local-dev-token`;
+      }
     }
     return config;
   },

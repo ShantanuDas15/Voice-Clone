@@ -31,6 +31,11 @@ export interface DashboardData {
   error: string | null;
 }
 
+export interface VoiceListResponse {
+  user_voices: VoiceProfileItem[];
+  engine_voices: any[];
+}
+
 export const useDashboardStats = () => {
   const [data, setData] = useState<DashboardData>({
     stats: null,
@@ -47,13 +52,13 @@ export const useDashboardStats = () => {
       const [statsRes, gensRes, voicesRes] = await Promise.all([
         api.get<UserStats>('/api/v1/users/stats'),
         api.get<GenerationListItem[]>('/api/v1/generations/'),
-        api.get<VoiceProfileItem[]>('/api/v1/voices/'),
+        api.get<VoiceListResponse>('/api/v1/voices/'),
       ]);
 
       setData({
         stats: statsRes.data,
         recentGenerations: gensRes.data.slice(0, 5), // Only need last 5 for dashboard
-        userVoices: voicesRes.data.slice(0, 5), // Top 5 voices
+        userVoices: voicesRes.data.user_voices.slice(0, 5), // Top 5 user voices
         isLoading: false,
         error: null,
       });

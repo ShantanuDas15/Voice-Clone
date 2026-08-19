@@ -31,6 +31,19 @@ security = HTTPBearer()
 async def verify_firebase_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
     """Verifies the Firebase JWT and returns the decoded token payload."""
     token = credentials.credentials
+    
+    # Local Dev Bypass
+    if token == "local-dev-token" or token == "undefined" or not firebase_admin._apps:
+        print("WARNING: Using local development token bypass in backend.")
+        return {
+            "uid": "local-dev-uid",
+            "email": "localdev@example.com",
+            "name": "Local Developer",
+            "picture": "https://api.dicebear.com/7.x/avataaars/svg?seed=local",
+            "firebase": {"sign_in_provider": "password"},
+            "email_verified": True
+        }
+
     try:
         # Verify the token against Firebase
         decoded_token = auth.verify_id_token(token)
