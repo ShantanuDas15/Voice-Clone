@@ -59,8 +59,12 @@ const AppLayout = () => {
                 {user?.email}
               </span>
               <Link to="/profile">
-                <Button variant="ghost" size="icon" className="rounded-full">
-                  <User className="h-5 w-5" />
+                <Button variant="ghost" size="icon" className="rounded-full overflow-hidden">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt="Profile" className="h-full w-full object-cover" />
+                  ) : (
+                    <User className="h-5 w-5" />
+                  )}
                 </Button>
               </Link>
               <Button 
