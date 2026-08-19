@@ -139,22 +139,22 @@ const Dashboard = () => {
       </div>
 
       {/* Usage Quota Banner */}
-      <Card className="rounded-3xl border-0 bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-900 dark:to-slate-950 text-white shadow-xl overflow-hidden relative">
-        <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
+      <Card className="rounded-3xl border border-slate-200 dark:border-0 bg-white dark:bg-gradient-to-br dark:from-slate-900 dark:to-slate-950 text-slate-900 dark:text-white shadow-xl overflow-hidden relative">
+        <div className="absolute top-0 right-0 p-12 opacity-15 dark:opacity-10 pointer-events-none text-slate-900 dark:text-white">
           <AudioWaveform className="w-64 h-64 -rotate-12" />
         </div>
         <CardContent className="p-8 md:p-10 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
             <div>
               <h2 className="text-2xl font-bold mb-2">Monthly Usage Quota</h2>
-              <p className="text-slate-400 font-medium">Keep track of your generation limits. Upgrades coming soon.</p>
+              <p className="text-slate-500 dark:text-slate-400 font-medium">Keep track of your generation limits. Upgrades coming soon.</p>
             </div>
             <div className="text-right">
               <span className="text-4xl font-black">{usagePercent.toFixed(1)}%</span>
-              <span className="text-slate-400 font-medium ml-2">Used</span>
+              <span className="text-slate-500 dark:text-slate-400 font-medium ml-2">Used</span>
             </div>
           </div>
-          <div className="w-full bg-slate-950/50 rounded-full h-4 p-1 backdrop-blur-md border border-slate-700/50">
+          <div className="w-full bg-slate-100 dark:bg-slate-950/50 rounded-full h-4 p-1 backdrop-blur-md border border-slate-200 dark:border-slate-700/50">
             <div
               className={`h-full rounded-full transition-all duration-1500 ease-out relative overflow-hidden ${isUsageHigh ? 'bg-gradient-to-r from-orange-500 to-red-500' : 'bg-gradient-to-r from-blue-500 to-purple-500'}`}
               style={{ width: `${Math.min(usagePercent, 100)}%` }}
@@ -162,7 +162,7 @@ const Dashboard = () => {
               <div className="absolute inset-0 bg-white/20 w-full h-full animate-pulse"></div>
             </div>
           </div>
-          <p className="text-sm text-slate-500 mt-4 font-medium">Quota resets automatically on the 1st of next month.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-500 mt-4 font-medium">Quota resets automatically on the 1st of next month.</p>
         </CardContent>
       </Card>
 
