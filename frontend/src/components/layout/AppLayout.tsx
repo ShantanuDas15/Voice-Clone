@@ -1,11 +1,19 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
+import { useThemeStore, applyTheme } from '../../store/themeStore';
+import { useEffect } from 'react';
 import { Button } from '../ui/button';
-import { LogOut, User, LayoutDashboard, Mic2 } from 'lucide-react';
+import { LogOut, User, LayoutDashboard, Mic2, Moon, Sun } from 'lucide-react';
 
 const AppLayout = () => {
   const { logout, user } = useAuthStore();
+  const { theme, setTheme } = useThemeStore();
   const location = useLocation();
+
+  // Ensure theme is applied on initial load
+  useEffect(() => {
+    applyTheme(theme);
+  }, []);
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -55,6 +63,14 @@ const AppLayout = () => {
                   <User className="h-5 w-5" />
                 </Button>
               </Link>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="rounded-full"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              >
+                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
               <Button variant="outline" size="sm" onClick={() => logout()} className="text-muted-foreground hover:text-destructive">
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout

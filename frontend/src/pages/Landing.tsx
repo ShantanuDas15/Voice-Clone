@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { useAuthStore } from '../store/authStore';
-import { Mic, Wand2, Zap, Shield, AudioWaveform, ChevronRight } from 'lucide-react';
+import { useThemeStore } from '../store/themeStore';
+import { Mic, Wand2, Zap, Shield, AudioWaveform, ChevronRight, Moon, Sun } from 'lucide-react';
 
 const Landing = () => {
   const { user } = useAuthStore();
+  const { theme, setTheme } = useThemeStore();
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col font-sans selection:bg-purple-500/30">
@@ -18,6 +20,14 @@ const Landing = () => {
             <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">Voice<span className="text-purple-600">Clone</span></span>
           </div>
           <div className="flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="rounded-full mr-2"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            >
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
             {user ? (
               <Link to="/dashboard">
                 <Button variant="ghost" className="hidden sm:inline-flex hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Dashboard</Button>
