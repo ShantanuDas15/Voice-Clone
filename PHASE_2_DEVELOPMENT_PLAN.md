@@ -135,9 +135,9 @@ By the end of Phase 2, the following must be achieved:
 | 2.4 | Voice Cloning Pipeline E2E Test | Validate: upload → ElevenLabs → DB → ready | ✅ Done |
 | 2.5 | TTS Generation Pipeline E2E Test | Validate: text → Celery → ElevenLabs → R2 → presigned URL | ✅ Done |
 | 2.6 | WaveSurfer.js Audio Player | Integrate waveform player; replace native audio element | ✅ Done |
-| 2.7 | Dashboard Overhaul | Live stats, usage meter, recent history feed | 🔴 Not Started |
-| 2.8 | Voice Profile Detail Page | /voices/:id — voice info, history, generate, delete | 🔴 Not Started |
-| 2.9 | Error Handling & UX Polish | Toast notifications, loading skeletons, empty states | 🔴 Not Started |
+| 2.7 | Dashboard Overhaul | Live stats, usage meter, recent history feed | ✅ Done |
+| 2.8 | Voice Profile Detail Page | /voices/:id — voice info, history, generate, delete | ✅ Done |
+| 2.9 | Error Handling & UX Polish | Toast notifications, loading skeletons, empty states | ✅ Done |
 | 2.10 | Backend Tests (Phase 2) | Unit + integration tests for all new endpoints and tasks | 🔴 Not Started |
 | 2.11 | Frontend TypeScript Cleanup | Remove any types, add interfaces, tsc --noEmit clean | 🔴 Not Started |
 | 2.12 | Production Deployment Validation | Env vars checklist, Railway redeploy, E2E smoke test | 🔴 Not Started |
@@ -697,9 +697,9 @@ Phase 2 is **complete** when ALL of the following are verified:
 | 2026-08-18 | 2.4 | e778eec | Voice Cloning E2E Test: Unit tests and integration tests added and passing |
 | 2026-08-18 | 2.5 | 25d7be4 | TTS model upgraded to eleven_turbo_v2; generation task tracks char usage |
 | — | 2.6 | — | Pending |
-| 2026-08-18 | 2.7 | b9873f5 | Dashboard UI rewritten with stats API integration |
-| 2026-08-19 | 2.8 | 4cc1898 | VoiceDetail UI implemented with deletion and generations feed |
-| 2026-08-19 | 2.9 | ec49e4b | Added global API interceptors, error toasts, and skeletons |
+| 2026-08-18 | 2.7 | 564a786 | Dashboard UI rewritten with stats API integration |
+| 2026-08-19 | 2.8 | 6ee11e0 | VoiceDetail UI implemented with deletion and generations feed |
+| 2026-08-19 | 2.9 | 7d796ac | Added global API interceptors, error toasts, and skeletons |
 | — | 2.10 | — | Pending |
 | — | 2.11 | — | Pending |
 | — | 2.12 | — | Pending |
