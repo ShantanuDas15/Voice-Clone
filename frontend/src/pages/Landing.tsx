@@ -47,47 +47,39 @@ const Landing = () => {
         </div>
 
         {/* Hero Section */}
-        <section className="relative pt-24 pb-32">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm font-semibold mb-2 ring-1 ring-purple-500/30 shadow-sm animate-float">
+        <section className="relative pt-32 pb-40 flex items-center justify-center min-h-[85vh]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm font-semibold mb-4 ring-1 ring-purple-500/30 shadow-sm animate-float">
               <Wand2 className="w-4 h-4" />
               <span>Next-generation voice synthesis is here</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-5xl mx-auto leading-[1.1]">
-              Give your content a <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 animate-text-gradient">voice of its own.</span>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-6xl mx-auto leading-[1.1]">
+              Give your content a <br className="hidden md:block" /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 animate-text-gradient">voice of its own.</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed font-light">
+            <p className="text-xl md:text-3xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed font-light mt-8">
               Create studio-quality voiceovers in seconds. Clone your own voice or choose from our premium AI voices for YouTube, podcasts, and audiobooks.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10">
               {user ? (
                 <Link to="/dashboard">
-                  <Button size="lg" className="h-14 px-8 text-lg rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 text-white group">
+                  <Button size="lg" className="h-16 px-10 text-xl rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 text-white group">
                     Go to Dashboard
-                    <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
               ) : (
-                <>
-                  <Link to="/signup">
-                    <Button size="lg" className="h-14 px-8 text-lg rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-1 text-white group">
-                      Start Creating for Free
-                      <ChevronRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </Link>
-                  <Link to="/login">
-                    <Button variant="outline" size="lg" className="h-14 px-8 text-lg rounded-full border-2 border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300 transition-all hover:-translate-y-1 group bg-transparent">
-                      <Play className="mr-2 w-5 h-5 text-slate-400 group-hover:text-purple-500 transition-colors" fill="currentColor" />
-                      Watch Demo
-                    </Button>
-                  </Link>
-                </>
+                <Link to="/signup">
+                  <Button size="lg" className="h-16 px-10 text-xl rounded-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all shadow-xl shadow-purple-500/25 hover:shadow-2xl hover:shadow-purple-500/40 hover:-translate-y-1 text-white group">
+                    Start Creating for Free
+                    <ChevronRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
               )}
             </div>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-6 font-medium">No credit card required. Up to 10,000 characters free forever.</p>
+            <p className="text-base text-slate-500 dark:text-slate-400 mt-8 font-medium">No credit card required. Up to 10,000 characters free forever.</p>
           </div>
         </section>
 
