@@ -6,7 +6,7 @@ import api from "../lib/axios";
 import { Button } from "../components/ui/button";
 import { Textarea } from "../components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from "../components/ui/select";
 import { Badge } from "../components/ui/badge";
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Loader2, Wand2, PlayCircle, History, Sparkles, Mic2 } from "lucide-react";
@@ -175,7 +175,8 @@ export default function Generate() {
                     </SelectTrigger>
                     <SelectContent className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl shadow-xl">
                       {voices.user_voices.length > 0 && (
-                        <optgroup label="Your Cloned Voices" className="text-xs font-bold text-slate-400 uppercase tracking-wider p-2">
+                        <SelectGroup>
+                          <SelectLabel className="text-xs font-bold text-slate-400 uppercase tracking-wider p-2">Your Cloned Voices</SelectLabel>
                           {voices.user_voices.map((v) => (
                             <SelectItem 
                               key={v.id} 
@@ -189,9 +190,10 @@ export default function Generate() {
                               </div>
                             </SelectItem>
                           ))}
-                        </optgroup>
+                        </SelectGroup>
                       )}
-                      <optgroup label="Premium Library" className="text-xs font-bold text-slate-400 uppercase tracking-wider p-2">
+                      <SelectGroup>
+                        <SelectLabel className="text-xs font-bold text-slate-400 uppercase tracking-wider p-2">Premium Library</SelectLabel>
                         {voices.engine_voices.map((v) => (
                           <SelectItem 
                             key={v.voice_id} 
@@ -204,7 +206,7 @@ export default function Generate() {
                               </div>
                           </SelectItem>
                         ))}
-                      </optgroup>
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                 )}
