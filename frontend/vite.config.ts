@@ -4,6 +4,11 @@ import path from "path"
 
 export default defineConfig({
   envDir: '../',
+  server: {
+    headers: {
+      "Cross-Origin-Opener-Policy": "same-origin-allow-popups"
+    }
+  },
   plugins: [react()],
   resolve: {
     alias: {
