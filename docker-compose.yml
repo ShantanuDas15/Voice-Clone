@@ -44,6 +44,7 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - SECRET_KEY=dev-secret-key-voice-clone-local
       - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
     depends_on:
       postgres:
         condition: service_healthy
@@ -64,6 +65,7 @@ services:
       - REDIS_URL=redis://redis:6379/0
       - SECRET_KEY=dev-secret-key-voice-clone-local
       - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
     depends_on:
       postgres:
         condition: service_healthy
