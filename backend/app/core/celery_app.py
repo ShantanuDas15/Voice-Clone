@@ -19,5 +19,5 @@ celery_app.conf.update(
     broker_connection_retry_on_startup=True,
 )
 
-# Optional: Auto-discover tasks once we create them
-# celery_app.autodiscover_tasks(["app.services.audio"])
+# Auto-discover tasks from our services module
+celery_app.autodiscover_tasks(["app.services.audio"])
